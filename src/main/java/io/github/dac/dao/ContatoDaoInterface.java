@@ -10,6 +10,6 @@ public interface ContatoDaoInterface {
     public boolean remover(Contato contato);
     public boolean atualizar(Contato contato);
     public List<Contato> listar();
-    public List<Contato> listarOrdemAlfabetica();
+    public List<Contato> listarPorLetra(String nome);
     public List<Contato> recuperarByNome(String nome);
 }
