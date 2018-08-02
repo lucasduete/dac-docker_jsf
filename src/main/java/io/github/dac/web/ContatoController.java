@@ -1,41 +1,95 @@
 package io.github.dac.web;
 
-import io.github.dac.dao.ContatoDao;
-import io.github.dac.dao.ContatoDaoInterface;
 import io.github.dac.models.Contato;
+import io.github.dac.services.ContatoService;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
 
-public class ContatoController implements ContatoDaoInterface {
+@Named
+@SessionScoped
+public class ContatoController implements Serializable {
 
-    private ContatoDao dao;
+    private ContatoService service;
+    private Contato contato;
+    private boolean modoEditando = false;
+    private List<Contato> contatos;
+    private String busca;
 
-    @Override
-    public boolean salvar(Contato contato) {
-        return this.dao.salvar(contato);
+    @PostConstruct
+    public void init() {
+        contatos = new ArrayList<>();
     }
 
-    @Override
-    public boolean remover(Contato contato) {
-        return this.dao.remover(contato);
+    public String salvar() {
+        this.service.salvar(contato);
+
+        //limpando
+        contato.setNome("");
+        contato.setEmail("");
+        contato.setTelefone("");
+        return "";
     }
 
-    @Override
-    public boolean atualizar(Contato contato) {
-        return this.dao.atualizar(contato);
+    public String remover() {
+        this.service.remover(contato);
+
+        return "";
     }
 
-    @Override
-    public List<Contato> listar() {
-        return this.dao.listar();
+    public String atulizar() {
+        this.service.atualizar(contato);
+
+        return "";
     }
 
-    @Override
-    public List<Contato> listarPorLetra(String nome) {
-        return this.dao.listarPorLetra(nome);
+    public List<Contato> listarTodos() {
+        return service.listar();
     }
 
-    @Override
-    public List<Contato> recuperarByNome(String nome) {
-        return this.dao.recuperarByNome(nome);
+    public List<Contato> listarPorNome() {
+        contatos = this.service.recuperarByNome(busca);
+        return contatos;
     }
+
+    public List<Contato> listarPorIncial(String inicial) {
+        return this.service.listarPorLetra(inicial);
+
+    }
+
+    public Contato getContato() {
+        return contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
+    }
+
+    public boolean isModoEditando() {
+        return modoEditando;
+    }
+
+    public void setModoEditando(boolean modoEditando) {
+        this.modoEditando = modoEditando;
+    }
+
+    public String getBusca() {
+        return busca;
+    }
+
+    public void setBusca(String busca) {
+        this.busca = busca;
+    }
+
+    public List<Contato> getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
+    }
+
 }
