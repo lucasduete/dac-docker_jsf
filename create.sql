@@ -1,0 +1,7 @@
+CREATE TABLE Contato (
+  ID SERIAL PRIMARY KEY,
+  Nome VARCHAR (100) NOT NULL,
+  Email VARCHAR (50) NOT NULL UNIQUE,
+  Telefone VARCHAR (17) NOT NULL UNIQUE,
+  dataNascimento Date
+);
