@@ -3,10 +3,7 @@ package io.github.dac.dao;
 import io.github.dac.factories.Conexao;
 import io.github.dac.models.Contato;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,26 +21,26 @@ public class ContatoDao implements ContatoDaoInterface {
 
     @Override
     public boolean salvar(Contato contato) {
-        String sql = "INSERT INTO Contato(Nome, Email, Telefone, dataNascimento) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO Contato(Nome, Email, Telefone, dataNascimento) VALUES (?,?,?,?);";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, contato.getNome());
             stmt.setString(2, contato.getEmail());
             stmt.setString(3, contato.getTelefone());
-            stmt.setObject(4, contato.getDataNascimento());
+            stmt.setDate(4, Date.valueOf(contato.getDataNascimento()));
 
-            return stmt.executeUpdate() > 0;
+            return (stmt.executeUpdate() > 0);
         } catch (SQLException ex) {
-
             ex.printStackTrace();
-            return false;
         }
+
+        return false;
     }
 
     @Override
     public boolean remover(Contato contato) {
-        String sql = "DELETE FROM Contato WHERE email = ?";
+        String sql = "DELETE FROM Contato WHERE email = ?;";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -59,14 +56,14 @@ public class ContatoDao implements ContatoDaoInterface {
 
     @Override
     public boolean atualizar(Contato contato) {
-        String sql = "UPDATE contato SET nome = ?, telefone = ? , dataNascimento = ? WHERE email = ?";
+        String sql = "UPDATE contato SET nome = ?, telefone = ? , dataNascimento = ? WHERE email = ?;";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, contato.getNome());
             stmt.setString(2, contato.getEmail());
             stmt.setString(3, contato.getTelefone());
-            stmt.setObject(4, contato.getDataNascimento());
+            stmt.setDate(4, Date.valueOf(contato.getDataNascimento()));
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
@@ -78,19 +75,22 @@ public class ContatoDao implements ContatoDaoInterface {
 
     @Override
     public List<Contato> listar() {
+
         PreparedStatement stmt = null;
+
         try {
-            String sql = "SELECT * FROM contato order by nome asc";
+            String sql = "SELECT * FROM contato ORDER BY nome ASC;";
             stmt = conn.prepareStatement(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(ContatoDao.class.getName()).log(Level.SEVERE, null, ex);
-
+            ex.printStackTrace();
         }
+
         try {
             return criarContato(stmt);
-        } catch (SQLException ex1) {
-            Logger.getLogger(ContatoDao.class.getName()).log(Level.SEVERE, null, ex1);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
+
         return Collections.emptyList();
     }
 
@@ -98,17 +98,19 @@ public class ContatoDao implements ContatoDaoInterface {
     public List<Contato> listarPorLetra(String nome) {
 
         PreparedStatement stmt = null;
+
         try {
-            String sql = "SELECT * FROM contato WHERE nome ILIKE ?";
+            String sql = "SELECT * FROM contato WHERE nome ILIKE ?;";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, nome + "%");
         } catch (SQLException ex) {
-            Logger.getLogger(ContatoDao.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
+
         try {
             return criarContato(stmt);
         } catch (SQLException ex) {
-            Logger.getLogger(ContatoDao.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
         return Collections.emptyList();
@@ -116,18 +118,21 @@ public class ContatoDao implements ContatoDaoInterface {
 
     @Override
     public List<Contato> recuperarByNome(String nome) {
+
         PreparedStatement stmt = null;
+
         try {
             String sql = "SELECT * FROM contato WHERE nome ILIKE ?;";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, nome + "%");
         } catch (SQLException ex) {
-            Logger.getLogger(ContatoDao.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
+
         try {
             return criarContato(stmt);
         } catch (SQLException ex) {
-            Logger.getLogger(ContatoDao.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
         return Collections.emptyList();
@@ -136,15 +141,14 @@ public class ContatoDao implements ContatoDaoInterface {
     private List<Contato> criarContato(PreparedStatement stmt) throws SQLException {
         List<Contato> contatos = new ArrayList<>();
         ResultSet resultSet = stmt.executeQuery();
-        while (resultSet.next()) {
-            Contato c = new Contato(
+
+        while (resultSet.next())
+            contatos.add(new Contato(
                     resultSet.getString("nome"),
                     resultSet.getString("email"),
                     resultSet.getString("telefone"),
-                    resultSet.getObject("dataNascimento", LocalDate.class)
-            );
-            contatos.add(c);
-        }
+                    resultSet.getDate("dataNascimento").toLocalDate()
+            ));
         
         return contatos;
     }
