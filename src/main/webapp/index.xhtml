@@ -7,6 +7,7 @@
       xmlns:jsf="http://xmlns.jcp.org/jsf">
     <h:head>
         <title>Docker-JSF</title>
+        <link rel="stylesheet" type="text/css" href="css/materialize.min.css"/>
     </h:head>
     <h:body>
         <h3 align="center">Adicionar Contatos</h3>
@@ -56,7 +57,7 @@
         </h:dataTable>
         <br/><br/><br/><br/>
 
-        <h3 align="center">Listar por nome</h3>
+        <h3 align="center">Listar Por Nome</h3>
         <h:form>
             <h:inputText id="nome" value="${contatoController.busca}" />
             <h:commandButton class="waves-effect waves-light btn" value="buscar" action="#{contatoController.listarPorNome()}"></h:commandButton>
@@ -80,6 +81,18 @@
                 </h:column>
             </h:dataTable>
         </h:form>
-    </h:body>
+        <br/><br/><br/><br/>
 
+        <h3 align="center">Listar Por Letra</h3>
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s3"><a href="#test1">A</a></li>
+                    <li class="tab col s3"><a href="#test2">B</a></li>
+                    <li class="tab col s3"><a href="#test3">C</a></li>
+                    <li class="tab col s3"><a href="#test4">D</a></li>
+                </ul>
+            </div>
+        </div>
+    </h:body>
 </html>
