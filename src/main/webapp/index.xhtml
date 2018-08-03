@@ -87,12 +87,53 @@
         <div class="row">
             <div class="col s12">
                 <ul class="tabs">
-                    <li class="tab col s3"><a href="#test1">A</a></li>
+                    <li class="tab col s3"><a>A</a></li>
                     <li class="tab col s3"><a href="#test2">B</a></li>
                     <li class="tab col s3"><a href="#test3">C</a></li>
                     <li class="tab col s3"><a href="#test4">D</a></li>
+                    <li class="tab col s3"><a href="#test1">E</a></li>
+                    <li class="tab col s3"><a href="#test2">F</a></li>
+                    <li class="tab col s3"><a href="#test3">G</a></li>
+                    <li class="tab col s3"><a href="#test4">H</a></li>
+                    <li class="tab col s3"><a href="#test1">I</a></li>
+                    <li class="tab col s3"><a href="#test2">J</a></li>
+                    <li class="tab col s3"><a href="#test3">K</a></li>
+                    <li class="tab col s3"><a href="#test4">L</a></li>
+                    <li class="tab col s3"><a href="#test1">M</a></li>
+                    <li class="tab col s3"><a href="#test2">N</a></li>
+                    <li class="tab col s3"><a href="#test3">O</a></li>
+                    <li class="tab col s3"><a href="#test4">P</a></li>
+                    <li class="tab col s3"><a href="#test1">Q</a></li>
+                    <li class="tab col s3"><a href="#test2">R</a></li>
+                    <li class="tab col s3"><a href="#test3">S</a></li>
+                    <li class="tab col s3"><a href="#test4">T</a></li>
+                    <li class="tab col s3"><a href="#test1">U</a></li>
+                    <li class="tab col s3"><a href="#test2">V</a></li>
+                    <li class="tab col s3"><a href="#test3">W</a></li>
+                    <li class="tab col s3"><a href="#test4">X</a></li>
+                    <li class="tab col s3"><a href="#test1">Y</a></li>
+                    <li class="tab col s3"><a href="#test2">Z</a></li>
                 </ul>
             </div>
         </div>
+        <br/><br/>
+            <h:dataTable id="tabelaPorNome" value="#{contatoController.contatos}" var="contatoNome">
+                <h:column>
+                    <f:facet name="header">Nome:</f:facet>
+                        #{contatoNome.nome}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Email:</f:facet>
+                        #{contatoNome.email}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Telefone:</f:facet>
+                        #{contatoNome.telefone}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Data de nascimento:</f:facet>
+                        #{contatoNome.dataNascimento}
+                </h:column>
+            </h:dataTable>
     </h:body>
 </html>
