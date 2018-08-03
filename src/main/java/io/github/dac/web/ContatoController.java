@@ -33,7 +33,7 @@ public class ContatoController {
         return "";
     }
 
-    public String remover() {
+    public String remover(Contato contato) {
         this.service.remover(contato);
 
         return "";
@@ -41,6 +41,7 @@ public class ContatoController {
 
     public String atulizar() {
         this.service.atualizar(contato);
+        this.modoEditando = false;
 
         return "";
     }
@@ -65,6 +66,7 @@ public class ContatoController {
 
     public void setContato(Contato contato) {
         this.contato = contato;
+        this.modoEditando = true;
     }
 
     public boolean isModoEditando() {

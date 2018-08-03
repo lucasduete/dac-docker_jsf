@@ -3,7 +3,6 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf">
     <h:head>
@@ -15,14 +14,71 @@
             <h:outputLabel for="nome" value="Nome: "/>
             <h:inputText id="nome" value="${contatoController.contato.nome}" />
             <h:outputLabel for="email" value="Email: "/>
-            <h:inputText id="email" value="${contatoController.contato.email}" rendered="${not controllerContato.modoEditando}"/>
+            <h:inputText id="email" value="${contatoController.contato.email}" rendered="${not contatoController.modoEditando}"/>
             <h:outputLabel for="telefone" value="Telefone: "/>
             <h:inputText id="telefone" value="${contatoController.contato.telefone}" />
             <input type="date" jsf:value="${contatoController.contato.dataNascimento}" jsf:converter="converter.Date" />
 
-            <h:commandButton class="waves-effect waves-light btn" value="Salvar" rendered="${not controllerContato.modoEditando}" action="#{contatoController.salvar()}"></h:commandButton>
+            <h:commandButton class="waves-effect waves-light btn" value="Salvar" rendered="${not contatoController.modoEditando}" action="#{contatoController.salvar()}"></h:commandButton>
+            <h:commandButton class="waves-effect waves-light btn" value="Salvar Editar" rendered="${contatoController.modoEditando}" action="#{contatoController.atulizar()}"></h:commandButton>
+        </h:form>
+        <br/><br/><br/><br/>
+
+        <h3 align="center">Contatos Cadastrados</h3>
+
+        <h:dataTable id="tabela" value="#{contatoController.listarTodos()}" var="contato">
+            <h:column>
+                <f:facet name="header">Nome:</f:facet>
+                    #{contato.nome}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email:</f:facet>
+                    #{contato.email}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Telefone:</f:facet>
+                    #{contato.telefone}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Data de nascimento:</f:facet>
+                    #{contato.dataNascimento}
+            </h:column>
+            <h:column>
+                <h:form>
+                    <h:commandButton  class="waves-effect waves-light btn" value="Editar" action="#{contatoController.setContato(contato)}"></h:commandButton>
+                </h:form>
+            </h:column>
+            <h:column>
+                <h:form>
+                    <h:commandButton class="waves-effect waves-light btn" value="Excluir" action="#{contatoController.remover(contato)}"></h:commandButton>
+                </h:form>
+            </h:column>
+        </h:dataTable>
+        <br/><br/><br/><br/>
+
+        <h3 align="center">Listar por nome</h3>
+        <h:form>
+            <h:inputText id="nome" value="${contatoController.busca}" />
+            <h:commandButton class="waves-effect waves-light btn" value="buscar" action="#{contatoController.listarPorNome()}"></h:commandButton>
             <br/><br/>
-            <h:commandButton class="waves-effect waves-light btn" value="Salvar Editar" rendered="${controllerContato.modoEditando}" action="${controllerContato.editar()}"></h:commandButton>
+            <h:dataTable id="tabelaPorNome" value="#{contatoController.contatos}" var="contatoNome">
+                <h:column>
+                    <f:facet name="header">Nome:</f:facet>
+                        #{contatoNome.nome}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Email:</f:facet>
+                        #{contatoNome.email}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Telefone:</f:facet>
+                        #{contatoNome.telefone}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Data de nascimento:</f:facet>
+                        #{contatoNome.dataNascimento}
+                </h:column>
+            </h:dataTable>
         </h:form>
     </h:body>
 

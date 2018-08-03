@@ -56,7 +56,7 @@ public class ContatoDao implements ContatoDaoInterface {
 
     @Override
     public boolean atualizar(Contato contato) {
-        String sql = "UPDATE contato SET nome = ?, telefone = ? , dataNascimento = ? WHERE email = ?;";
+        String sql = "UPDATE Contato SET Nome = ?, Telefone = ? , dataNascimento = ? WHERE Email = ?;";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -68,7 +68,6 @@ public class ContatoDao implements ContatoDaoInterface {
             return stmt.executeUpdate() > 0;
         } catch (SQLException ex) {
 
-            ex.printStackTrace();
             return false;
         }
     }
