@@ -7,10 +7,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-/**
- *
- * @author alexalins
- */
 @FacesConverter(value = "converter.Date", forClass = LocalDate.class)
 public class DateConverter implements Converter {
 
@@ -18,18 +14,14 @@ public class DateConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value == null) {
-            return null;
-        }
+        if (value == null) return null;
 
         return LocalDate.parse(value, formmater);
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value == null) {
-            return "";
-        }
+        if (value == null) return new String();
 
         return formmater.format((LocalDate) value);
     }

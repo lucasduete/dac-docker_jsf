@@ -13,14 +13,14 @@
         <h3 align="center">Adicionar Contatos</h3>
         <h:form>
             <h:outputLabel for="nome" value="Nome: "/>
-            <h:inputText id="nome" value="#{contatoController.contato.nome}" />
+            <h:inputText id="nome" value="${contatoController.contato.nome}" />
             <h:outputLabel for="email" value="Email: "/>
-            <h:inputText id="email" value="#{contatoController.contato.email}" rendered="${not controllerContato.modoEditando}"/>
+            <h:inputText id="email" value="${contatoController.contato.email}" rendered="${not controllerContato.modoEditando}"/>
             <h:outputLabel for="telefone" value="Telefone: "/>
-            <h:inputText id="telefone" value="#{contatoController.contato.telefone}" />
-            <input type="date" jsf:value="#{contatoController.contato.dataNascimento}" jsf:converter="converter.Date" />
+            <h:inputText id="telefone" value="${contatoController.contato.telefone}" />
+            <input type="date" jsf:value="${contatoController.contato.dataNascimento}" jsf:converter="converter.Date" />
 
-            <h:commandButton class="waves-effect waves-light btn" value="Salvar" rendered="${not controllerContato.modoEditando}" action="#{contatoController.salvar(contato)}"></h:commandButton>
+            <h:commandButton class="waves-effect waves-light btn" value="Salvar" rendered="${not controllerContato.modoEditando}" action="#{contatoController.salvar()}"></h:commandButton>
             <br/><br/>
             <h:commandButton class="waves-effect waves-light btn" value="Salvar Editar" rendered="${controllerContato.modoEditando}" action="${controllerContato.editar()}"></h:commandButton>
         </h:form>
