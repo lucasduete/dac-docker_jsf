@@ -15,13 +15,16 @@ public class ContatoController {
     private String busca;
     private Contato contato;
     private List<Contato> contatos;
+    private List<Contato> contatosLetra;
     private ContatoService service;
     private boolean modoEditando = false;
+    private String inicial;
 
     @PostConstruct
     public void init() {
         this.contato = new Contato();
         this.contatos = new ArrayList<>();
+        this.contatosLetra = new ArrayList<>();
         this.service = new ContatoService();
     }
 
@@ -55,8 +58,9 @@ public class ContatoController {
         return contatos;
     }
 
-    public List<Contato> listarPorIncial(String inicial) {
-        return this.service.listarPorLetra(inicial);
+    public List<Contato> listarPorIncial() {
+        contatosLetra = this.service.listarPorLetra(inicial);
+        return contatosLetra;
 
     }
 
@@ -93,4 +97,19 @@ public class ContatoController {
         this.contatos = contatos;
     }
 
+    public String getInicial() {
+        return inicial;
+    }
+
+    public void setInicial(String inicial) {
+        this.inicial = inicial;
+    } 
+
+    public List<Contato> getContatosLetra() {
+        return contatosLetra;
+    }
+
+    public void setContatosLetra(List<Contato> contatosLetra) {
+        this.contatosLetra = contatosLetra;
+    }
 }

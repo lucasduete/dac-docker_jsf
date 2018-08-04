@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Docker-JSF</title>
         <link rel="stylesheet" type="text/css" href="css/materialize.min.css"/>
@@ -84,56 +85,60 @@
         <br/><br/><br/><br/>
 
         <h3 align="center">Listar Por Letra</h3>
-        <div class="row">
-            <div class="col s12">
-                <ul class="tabs">
-                    <li class="tab col s3"><a>A</a></li>
-                    <li class="tab col s3"><a href="#test2">B</a></li>
-                    <li class="tab col s3"><a href="#test3">C</a></li>
-                    <li class="tab col s3"><a href="#test4">D</a></li>
-                    <li class="tab col s3"><a href="#test1">E</a></li>
-                    <li class="tab col s3"><a href="#test2">F</a></li>
-                    <li class="tab col s3"><a href="#test3">G</a></li>
-                    <li class="tab col s3"><a href="#test4">H</a></li>
-                    <li class="tab col s3"><a href="#test1">I</a></li>
-                    <li class="tab col s3"><a href="#test2">J</a></li>
-                    <li class="tab col s3"><a href="#test3">K</a></li>
-                    <li class="tab col s3"><a href="#test4">L</a></li>
-                    <li class="tab col s3"><a href="#test1">M</a></li>
-                    <li class="tab col s3"><a href="#test2">N</a></li>
-                    <li class="tab col s3"><a href="#test3">O</a></li>
-                    <li class="tab col s3"><a href="#test4">P</a></li>
-                    <li class="tab col s3"><a href="#test1">Q</a></li>
-                    <li class="tab col s3"><a href="#test2">R</a></li>
-                    <li class="tab col s3"><a href="#test3">S</a></li>
-                    <li class="tab col s3"><a href="#test4">T</a></li>
-                    <li class="tab col s3"><a href="#test1">U</a></li>
-                    <li class="tab col s3"><a href="#test2">V</a></li>
-                    <li class="tab col s3"><a href="#test3">W</a></li>
-                    <li class="tab col s3"><a href="#test4">X</a></li>
-                    <li class="tab col s3"><a href="#test1">Y</a></li>
-                    <li class="tab col s3"><a href="#test2">Z</a></li>
-                </ul>
-            </div>
-        </div>
         <br/><br/>
-            <h:dataTable id="tabelaPorNome" value="#{contatoController.contatos}" var="contatoNome">
-                <h:column>
-                    <f:facet name="header">Nome:</f:facet>
-                        #{contatoNome.nome}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Email:</f:facet>
-                        #{contatoNome.email}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Telefone:</f:facet>
-                        #{contatoNome.telefone}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Data de nascimento:</f:facet>
-                        #{contatoNome.dataNascimento}
-                </h:column>
-            </h:dataTable>
+        <div align="center">
+            <h:form>
+                <p:selectOneMenu id="console" value="#{contatoController.inicial}" style="width:200px">
+                    <f:selectItem itemLabel="Escolha uma letra" itemValue=""/>
+                    <f:selectItem itemLabel="A" itemValue="A"/>
+                    <f:selectItem itemLabel="B" itemValue="B"/>
+                    <f:selectItem itemLabel="C" itemValue="C"/>
+                    <f:selectItem itemLabel="D" itemValue="D"/>
+                    <f:selectItem itemLabel="E" itemValue="E"/>
+                    <f:selectItem itemLabel="F" itemValue="F"/>
+                    <f:selectItem itemLabel="G" itemValue="G"/>
+                    <f:selectItem itemLabel="H" itemValue="H"/>
+                    <f:selectItem itemLabel="I" itemValue="I"/>
+                    <f:selectItem itemLabel="J" itemValue="J"/>
+                    <f:selectItem itemLabel="K" itemValue="K"/>
+                    <f:selectItem itemLabel="L" itemValue="L"/>
+                    <f:selectItem itemLabel="M" itemValue="M"/>
+                    <f:selectItem itemLabel="N" itemValue="N"/>
+                    <f:selectItem itemLabel="O" itemValue="O"/>
+                    <f:selectItem itemLabel="P" itemValue="P"/>
+                    <f:selectItem itemLabel="Q" itemValue="Q"/>
+                    <f:selectItem itemLabel="R" itemValue="R"/>
+                    <f:selectItem itemLabel="S" itemValue="S"/>
+                    <f:selectItem itemLabel="T" itemValue="T"/>
+                    <f:selectItem itemLabel="U" itemValue="U"/>
+                    <f:selectItem itemLabel="V" itemValue="V"/>
+                    <f:selectItem itemLabel="W" itemValue="W"/>
+                    <f:selectItem itemLabel="X" itemValue="X"/>
+                    <f:selectItem itemLabel="Y" itemValue="Y"/>
+                    <f:selectItem itemLabel="Z" itemValue="Z"/>
+                </p:selectOneMenu>
+                <br/><br/>
+                <h:commandButton class="waves-effect waves-light btn" value="Buscar" action="#{contatoController.listarPorIncial()}"></h:commandButton>
+            </h:form>
+        </div>
+        <br/>
+        <h:dataTable id="tabelaPorLetra" value="#{contatoController.contatosLetra}" var="contatoLetra">
+            <h:column>
+                <f:facet name="header">Nome:</f:facet>
+                    #{contatoLetra.nome}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email:</f:facet>
+                    #{contatoLetra.email}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Telefone:</f:facet>
+                    #{contatoLetra.telefone}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Data de nascimento:</f:facet>
+                    #{contatoLetra.dataNascimento}
+            </h:column>
+        </h:dataTable> 
     </h:body>
 </html>
