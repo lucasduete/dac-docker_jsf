@@ -11,6 +11,13 @@
         <link rel="stylesheet" type="text/css" href="css/materialize.min.css"/>
     </h:head>
     <h:body>
+        <div align="right">
+            <h:form>
+                <h:commandButton class="waves-effect waves-light btn red" value="Sair" action="${contatoController.logout()}"></h:commandButton>
+            </h:form>
+        </div>
+
+
         <h3 align="center">Adicionar Contatos</h3>
         <h:form>
             <h:outputLabel for="nome" value="Nome: "/>
@@ -22,8 +29,8 @@
             <h:outputLabel for="dataNasc" value="Data de Nascimento: " />
             <input type="date" id="dataNasc" jsf:value="${contatoController.contato.dataNascimento}" jsf:converter="converter.Date" />
 
-            <h:commandButton class="waves-effect waves-light btn" value="Salvar" rendered="${not contatoController.modoEditando}" action="#{contatoController.salvar()}"></h:commandButton>
-            <h:commandButton class="waves-effect waves-light btn" value="Editar" rendered="${contatoController.modoEditando}" action="#{contatoController.atualizar()}"></h:commandButton>
+            <h:commandButton class="waves-effect waves-light btn" value="Salvar" rendered="${not contatoController.modoEditando}" action="${contatoController.salvar()}"></h:commandButton>
+            <h:commandButton class="waves-effect waves-light btn" value="Editar" rendered="${contatoController.modoEditando}" action="${contatoController.atualizar()}"></h:commandButton>
         </h:form>
         <br/><br/><br/><br/>
 
@@ -61,7 +68,7 @@
 
         <h3 align="center">Listar Por Nome</h3>
         <h:form>
-            <h:inputText id="nome" value="${contatoController.busca}" />
+            <h:inputText id="busca" value="${contatoController.busca}" />
             <h:commandButton class="waves-effect waves-light btn" value="buscar" action="#{contatoController.listarPorNome()}"></h:commandButton>
             <br/><br/>
             <h:dataTable id="tabelaPorNome" value="#{contatoController.contatos}" var="contatoNome">
