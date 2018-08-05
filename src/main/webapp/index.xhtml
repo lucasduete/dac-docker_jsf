@@ -15,11 +15,12 @@
         <h:form>
             <h:outputLabel for="nome" value="Nome: "/>
             <h:inputText id="nome" value="${contatoController.contato.nome}" />
-            <h:outputLabel for="email" value="Email: "/>
+            <h:outputLabel for="email" value="Email: " rendered="${not contatoController.modoEditando}" />
             <h:inputText id="email" value="${contatoController.contato.email}" rendered="${not contatoController.modoEditando}"/>
             <h:outputLabel for="telefone" value="Telefone: "/>
             <h:inputText id="telefone" value="${contatoController.contato.telefone}" />
-            <input type="date" jsf:value="${contatoController.contato.dataNascimento}" jsf:converter="converter.Date" />
+            <h:outputLabel for="dataNasc" value="Data de Nascimento: " />
+            <input type="date" id="dataNasc" jsf:value="${contatoController.contato.dataNascimento}" jsf:converter="converter.Date" />
 
             <h:commandButton class="waves-effect waves-light btn" value="Salvar" rendered="${not contatoController.modoEditando}" action="#{contatoController.salvar()}"></h:commandButton>
             <h:commandButton class="waves-effect waves-light btn" value="Editar" rendered="${contatoController.modoEditando}" action="#{contatoController.atualizar()}"></h:commandButton>
