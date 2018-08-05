@@ -1,4 +1,4 @@
-package io.github.dac.web;
+package io.github.dac.web.controllers;
 
 import io.github.dac.models.Contato;
 import io.github.dac.services.ContatoService;
