@@ -11,142 +11,148 @@
         <link rel="stylesheet" type="text/css" href="css/materialize.min.css"/>
     </h:head>
     <h:body>
-        <div align="right">
+        <div jsf:rendered="${contatoController.loggado}">
+            <div align="right">
+                <h:form>
+                    <h:commandButton class="waves-effect waves-light btn red" value="Sair" action="${contatoController.logout()}"></h:commandButton>
+                </h:form>
+            </div>
+
+
+            <h3 align="center">Adicionar Contatos</h3>
             <h:form>
-                <h:commandButton class="waves-effect waves-light btn red" value="Sair" action="${contatoController.logout()}"></h:commandButton>
+                <h:outputLabel for="nome" value="Nome: "/>
+                <h:inputText id="nome" value="${contatoController.contato.nome}" />
+                <h:outputLabel for="email" value="Email: " rendered="${not contatoController.modoEditando}" />
+                <h:inputText id="email" value="${contatoController.contato.email}" rendered="${not contatoController.modoEditando}"/>
+                <h:outputLabel for="telefone" value="Telefone: "/>
+                <h:inputText id="telefone" value="${contatoController.contato.telefone}" />
+                <h:outputLabel for="dataNasc" value="Data de Nascimento: " />
+                <input type="date" id="dataNasc" jsf:value="${contatoController.contato.dataNascimento}" jsf:converter="converter.Date" />
+
+                <h:commandButton class="waves-effect waves-light btn" value="Salvar" rendered="${not contatoController.modoEditando}" action="${contatoController.salvar()}"></h:commandButton>
+                <h:commandButton class="waves-effect waves-light btn" value="Editar" rendered="${contatoController.modoEditando}" action="${contatoController.atualizar()}"></h:commandButton>
             </h:form>
-        </div>
+            <br/><br/><br/><br/>
 
+            <h3 align="center">Contatos Cadastrados</h3>
 
-        <h3 align="center">Adicionar Contatos</h3>
-        <h:form>
-            <h:outputLabel for="nome" value="Nome: "/>
-            <h:inputText id="nome" value="${contatoController.contato.nome}" />
-            <h:outputLabel for="email" value="Email: " rendered="${not contatoController.modoEditando}" />
-            <h:inputText id="email" value="${contatoController.contato.email}" rendered="${not contatoController.modoEditando}"/>
-            <h:outputLabel for="telefone" value="Telefone: "/>
-            <h:inputText id="telefone" value="${contatoController.contato.telefone}" />
-            <h:outputLabel for="dataNasc" value="Data de Nascimento: " />
-            <input type="date" id="dataNasc" jsf:value="${contatoController.contato.dataNascimento}" jsf:converter="converter.Date" />
-
-            <h:commandButton class="waves-effect waves-light btn" value="Salvar" rendered="${not contatoController.modoEditando}" action="${contatoController.salvar()}"></h:commandButton>
-            <h:commandButton class="waves-effect waves-light btn" value="Editar" rendered="${contatoController.modoEditando}" action="${contatoController.atualizar()}"></h:commandButton>
-        </h:form>
-        <br/><br/><br/><br/>
-
-        <h3 align="center">Contatos Cadastrados</h3>
-
-        <h:dataTable id="tabela" value="#{contatoController.listarTodos()}" var="contato">
-            <h:column>
-                <f:facet name="header">Nome:</f:facet>
-                    #{contato.nome}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Email:</f:facet>
-                    #{contato.email}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Telefone:</f:facet>
-                    #{contato.telefone}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Data de nascimento:</f:facet>
-                    #{contato.dataNascimento}
-            </h:column>
-            <h:column>
-                <h:form>
-                    <h:commandButton  class="waves-effect waves-light btn" value="Editar" action="#{contatoController.setContato(contato)}"></h:commandButton>
-                </h:form>
-            </h:column>
-            <h:column>
-                <h:form>
-                    <h:commandButton class="waves-effect waves-light btn" value="Excluir" action="#{contatoController.remover(contato)}"></h:commandButton>
-                </h:form>
-            </h:column>
-        </h:dataTable>
-        <br/><br/><br/><br/>
-
-        <h3 align="center">Listar Por Nome</h3>
-        <h:form>
-            <h:inputText id="busca" value="${contatoController.busca}" />
-            <h:commandButton class="waves-effect waves-light btn" value="buscar" action="#{contatoController.listarPorNome()}"></h:commandButton>
-            <br/><br/>
-            <h:dataTable id="tabelaPorNome" value="#{contatoController.contatos}" var="contatoNome">
+            <h:dataTable id="tabela" value="#{contatoController.listarTodos()}" var="contato">
                 <h:column>
                     <f:facet name="header">Nome:</f:facet>
-                        #{contatoNome.nome}
+                    #{contato.nome}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Email:</f:facet>
-                        #{contatoNome.email}
+                    #{contato.email}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Telefone:</f:facet>
-                        #{contatoNome.telefone}
+                    #{contato.telefone}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Data de nascimento:</f:facet>
-                        #{contatoNome.dataNascimento}
+                    #{contato.dataNascimento}
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <h:commandButton  class="waves-effect waves-light btn" value="Editar" action="#{contatoController.setContato(contato)}"></h:commandButton>
+                    </h:form>
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <h:commandButton class="waves-effect waves-light btn" value="Excluir" action="#{contatoController.remover(contato)}"></h:commandButton>
+                    </h:form>
                 </h:column>
             </h:dataTable>
-        </h:form>
-        <br/><br/><br/><br/>
+            <br/><br/><br/><br/>
 
-        <h3 align="center">Listar Por Letra</h3>
-        <br/><br/>
-        <div align="center">
+            <h3 align="center">Listar Por Nome</h3>
             <h:form>
-                <p:selectOneMenu id="console" value="#{contatoController.inicial}" style="width:200px">
-                    <f:selectItem itemLabel="Escolha uma letra" itemValue=""/>
-                    <f:selectItem itemLabel="A" itemValue="A"/>
-                    <f:selectItem itemLabel="B" itemValue="B"/>
-                    <f:selectItem itemLabel="C" itemValue="C"/>
-                    <f:selectItem itemLabel="D" itemValue="D"/>
-                    <f:selectItem itemLabel="E" itemValue="E"/>
-                    <f:selectItem itemLabel="F" itemValue="F"/>
-                    <f:selectItem itemLabel="G" itemValue="G"/>
-                    <f:selectItem itemLabel="H" itemValue="H"/>
-                    <f:selectItem itemLabel="I" itemValue="I"/>
-                    <f:selectItem itemLabel="J" itemValue="J"/>
-                    <f:selectItem itemLabel="K" itemValue="K"/>
-                    <f:selectItem itemLabel="L" itemValue="L"/>
-                    <f:selectItem itemLabel="M" itemValue="M"/>
-                    <f:selectItem itemLabel="N" itemValue="N"/>
-                    <f:selectItem itemLabel="O" itemValue="O"/>
-                    <f:selectItem itemLabel="P" itemValue="P"/>
-                    <f:selectItem itemLabel="Q" itemValue="Q"/>
-                    <f:selectItem itemLabel="R" itemValue="R"/>
-                    <f:selectItem itemLabel="S" itemValue="S"/>
-                    <f:selectItem itemLabel="T" itemValue="T"/>
-                    <f:selectItem itemLabel="U" itemValue="U"/>
-                    <f:selectItem itemLabel="V" itemValue="V"/>
-                    <f:selectItem itemLabel="W" itemValue="W"/>
-                    <f:selectItem itemLabel="X" itemValue="X"/>
-                    <f:selectItem itemLabel="Y" itemValue="Y"/>
-                    <f:selectItem itemLabel="Z" itemValue="Z"/>
-                </p:selectOneMenu>
+                <h:inputText id="busca" value="${contatoController.busca}" />
+                <h:commandButton class="waves-effect waves-light btn" value="buscar" action="#{contatoController.listarPorNome()}"></h:commandButton>
                 <br/><br/>
-                <h:commandButton class="waves-effect waves-light btn" value="Buscar" action="#{contatoController.listarPorIncial()}"></h:commandButton>
+                <h:dataTable id="tabelaPorNome" value="#{contatoController.contatos}" var="contatoNome">
+                    <h:column>
+                        <f:facet name="header">Nome:</f:facet>
+                        #{contatoNome.nome}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Email:</f:facet>
+                        #{contatoNome.email}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Telefone:</f:facet>
+                        #{contatoNome.telefone}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Data de nascimento:</f:facet>
+                        #{contatoNome.dataNascimento}
+                    </h:column>
+                </h:dataTable>
             </h:form>
-        </div>
-        <br/>
-        <h:dataTable id="tabelaPorLetra" value="#{contatoController.contatosLetra}" var="contatoLetra">
-            <h:column>
-                <f:facet name="header">Nome:</f:facet>
+            <br/><br/><br/><br/>
+
+            <h3 align="center">Listar Por Letra</h3>
+            <br/><br/>
+            <div align="center">
+                <h:form>
+                    <p:selectOneMenu id="console" value="#{contatoController.inicial}" style="width:200px">
+                        <f:selectItem itemLabel="Escolha uma letra" itemValue=""/>
+                        <f:selectItem itemLabel="A" itemValue="A"/>
+                        <f:selectItem itemLabel="B" itemValue="B"/>
+                        <f:selectItem itemLabel="C" itemValue="C"/>
+                        <f:selectItem itemLabel="D" itemValue="D"/>
+                        <f:selectItem itemLabel="E" itemValue="E"/>
+                        <f:selectItem itemLabel="F" itemValue="F"/>
+                        <f:selectItem itemLabel="G" itemValue="G"/>
+                        <f:selectItem itemLabel="H" itemValue="H"/>
+                        <f:selectItem itemLabel="I" itemValue="I"/>
+                        <f:selectItem itemLabel="J" itemValue="J"/>
+                        <f:selectItem itemLabel="K" itemValue="K"/>
+                        <f:selectItem itemLabel="L" itemValue="L"/>
+                        <f:selectItem itemLabel="M" itemValue="M"/>
+                        <f:selectItem itemLabel="N" itemValue="N"/>
+                        <f:selectItem itemLabel="O" itemValue="O"/>
+                        <f:selectItem itemLabel="P" itemValue="P"/>
+                        <f:selectItem itemLabel="Q" itemValue="Q"/>
+                        <f:selectItem itemLabel="R" itemValue="R"/>
+                        <f:selectItem itemLabel="S" itemValue="S"/>
+                        <f:selectItem itemLabel="T" itemValue="T"/>
+                        <f:selectItem itemLabel="U" itemValue="U"/>
+                        <f:selectItem itemLabel="V" itemValue="V"/>
+                        <f:selectItem itemLabel="W" itemValue="W"/>
+                        <f:selectItem itemLabel="X" itemValue="X"/>
+                        <f:selectItem itemLabel="Y" itemValue="Y"/>
+                        <f:selectItem itemLabel="Z" itemValue="Z"/>
+                    </p:selectOneMenu>
+                    <br/><br/>
+                    <h:commandButton class="waves-effect waves-light btn" value="Buscar" action="#{contatoController.listarPorIncial()}"></h:commandButton>
+                </h:form>
+            </div>
+            <br/>
+            <h:dataTable id="tabelaPorLetra" value="#{contatoController.contatosLetra}" var="contatoLetra">
+                <h:column>
+                    <f:facet name="header">Nome:</f:facet>
                     #{contatoLetra.nome}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Email:</f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Email:</f:facet>
                     #{contatoLetra.email}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Telefone:</f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Telefone:</f:facet>
                     #{contatoLetra.telefone}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Data de nascimento:</f:facet>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Data de nascimento:</f:facet>
                     #{contatoLetra.dataNascimento}
-            </h:column>
-        </h:dataTable> 
+                </h:column>
+            </h:dataTable>
+        </div>
+        <div align="center" jsf:rendered="${not contatoController.loggado}">
+            <h3 class="red-text darken-3">Faça o Login para utiliziar esta página</h3>
+            <a href="login.xhtml"><button class="waves-effect waves-light btn orange">Login</button></a>
+        </div>
     </h:body>
 </html>

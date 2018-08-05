@@ -211,4 +211,12 @@ public class ContatoController implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isLoggado() {
+        return loggado;
+    }
+
+    public void setLoggado(boolean loggado) {
+        this.loggado = loggado;
+    }
 }
