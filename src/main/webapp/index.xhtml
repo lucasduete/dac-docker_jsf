@@ -22,7 +22,7 @@
             <input type="date" jsf:value="${contatoController.contato.dataNascimento}" jsf:converter="converter.Date" />
 
             <h:commandButton class="waves-effect waves-light btn" value="Salvar" rendered="${not contatoController.modoEditando}" action="#{contatoController.salvar()}"></h:commandButton>
-            <h:commandButton class="waves-effect waves-light btn" value="Salvar Editar" rendered="${contatoController.modoEditando}" action="#{contatoController.atulizar()}"></h:commandButton>
+            <h:commandButton class="waves-effect waves-light btn" value="Editar" rendered="${contatoController.modoEditando}" action="#{contatoController.atualizar()}"></h:commandButton>
         </h:form>
         <br/><br/><br/><br/>
 

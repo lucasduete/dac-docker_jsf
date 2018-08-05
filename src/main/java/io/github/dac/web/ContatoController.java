@@ -2,23 +2,25 @@ package io.github.dac.web;
 
 import io.github.dac.models.Contato;
 import io.github.dac.services.ContatoService;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 @Named
-@RequestScoped
-public class ContatoController {
+@SessionScoped
+public class ContatoController implements Serializable {
 
     private String busca;
+    private String inicial;
     private Contato contato;
     private List<Contato> contatos;
-    private List<Contato> contatosLetra;
     private ContatoService service;
+    private List<Contato> contatosLetra;
     private boolean modoEditando = false;
-    private String inicial;
 
     @PostConstruct
     public void init() {
@@ -42,9 +44,11 @@ public class ContatoController {
         return "";
     }
 
-    public String atulizar() {
-        this.service.atualizar(contato);
-        this.modoEditando = false;
+    public String atualizar() {
+        if(this.service.atualizar(contato)) {
+            this.modoEditando = false;
+            this.contato = new Contato();
+        }
 
         return "";
     }
