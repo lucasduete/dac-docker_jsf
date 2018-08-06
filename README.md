@@ -1,4 +1,6 @@
 # Atividade Avaliativa - Docker e Java Server Faces
+### Equipe ###
+Alexa Lins e Lucas Duete
 
 ### Requisitos ###
 * Java
